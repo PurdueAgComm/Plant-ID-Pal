@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/quiz.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <title>Fruits & Nuts Quiz</title>    
+    <link rel="icon" type="image/gif" href="images/assets/favicon.ico" />
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse goldbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#goldnav" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle Quick Links</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="goldnav" class="collapse navbar-collapse navbar-right gold">
+            <p class="hide">Quick Links</p>
+            <ul id="menu-gold-top-nav" class="nav navbar-nav right quicklinks"><li id="menu-item-26" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-26"><a href="https://ag.purdue.edu/hla">Department of Horticulture and Landscape Architecture</a></li>
+            <li id="menu-item-27" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-27"><a href="https://www.ag.purdue.edu/">College of Agriculture</a></li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<div class="top">
+<div class="container">
+    <div class="row">
+        <div class="logo col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <a href="http://www.purdue.edu">
+                <img class="hidden-print" alt="Purdue University Department of Horticulture and Landscape Architecture" src="../PlantID%20Quiz/images/assets/logo.png">
+            </a>
+        </div>
+        <div class="department col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <a title="Return to Purdue Online Plant ID Study site" href="https://dev.www.purdue.edu/hla/sites/plantid">
+                <img class="img-responsive" style="margin-top: -15px;" src="../PlantID%20Quiz/images/assets/PlantIDPalLogoTransparent.png">
+                
+                <span class="blog-description" href="https://dev.www.purdue.edu/hla/sites/plantid"></span>
+            </a>
+        </div>
+        
+    </div>
+</div>
+</div>
+<nav class="navbar navbar-inverse blackbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".black">
+            <span style="color: #fff;"><i style="color: #fff; vertical-align:middle;" class="fa fa-bars fa-2x"></i>&nbsp;&nbsp;Site Menu</span>
+            </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Site Navigation Menu -->
+        <div class="collapse navbar-collapse black"><ul id="menu-primary" class="nav navbar-nav"><li id="" class="home menu-item menu-item-type-custom menu-item-object-custom menu-item-home"><a title="<span class=&quot;glyphicon glyphicon-home&quot; aria-hidden=&quot;true&quot;></span> Home" href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+        <li id="" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown"><a title="Learn" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true">Learn <span class="caret"></span></a>
+        <ul role="menu" class=" dropdown-menu">
+            <li id="" class="menu-item menu-item-type-taxonomy"><a title="Ornamentals" href="ornamentalslist.html">Ornamentals</a></li>
+            <li id="" class="menu-item menu-item-type-taxonomy"><a title="Flowers &amp; Indoor Plants" href="flowers.html">Flowers &amp; Indoor Plants</a></li>
+            <li id="" class="menu-item menu-item-type-taxonomy"><a title="Fruits and Nuts" href="fruits.html">Fruits & Nuts</a></li>
+            <li id="" class="menu-item menu-item-type-taxonomy"><a title="Vegetables" href="vegetables.html">Vegetables</a></li>
+        </ul>
+    </li>
+    <li id="" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item active"><a title="Test Your Knowledge" href="quizpage.html">Test Your Knowledge</a></li>
+    </ul></div>    <!--/.nav-collapse -->
+</div>
+</nav>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <h2>Fruits & Nuts Quiz</h2>
+            <div id="output">
+
+                <div id="demo" style="text-align: center;"></div>
+
+                <button class="btn btn-default col-sm-12 hidebutton"  id="option1">New Image</button>
+                <button class="btn btn-default col-sm-12 hidebutton" id="option2">New Image</button>
+                <button class="btn btn-default col-sm-12 hidebutton" id="option3">New Image</button>
+                <button class="btn btn-default col-sm-12 hidebutton" id="option4">New Image</button>
+                <div id="tryAgain" class="fadeIn">Try Again</div>
+                <button class="btn btn-success col-sm-12 hidenextbutton" id="nextquestion">Next Question</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/data/ornamentals.js"></script>
+<script type="text/javascript">
+
+
+
+var ornamentals=JSON.parse(txt).ornamentals;
+var container=document.getElementById("output");
+var numberofornamentals=ornamentals.length; //this is the total number of entries, choosing one image per entry it is same as total images
+
+//creates random order without repeats then you read throu the ranNums array
+function shuffle(array) {
+    var i = array.length,
+        j = 0,
+        temp;
+
+    while (i--) {
+
+        j = Math.floor(Math.random() * (i+1));
+
+        // swap randomly chosen element with current element
+        temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+
+    }
+
+    return array;
+}
+
+//Create array pf numbers 1-total amount of images
+
+var N = numberofornamentals; 
+numberedArray1 = Array.apply(null, {length: N}).map(Number.call, Number)
+console.log(numberedArray1);
+
+var ranNums = shuffle(numberedArray1); //Add here the number of plants
+console.log(ranNums);
+//end of random numbers
+
+// generates random number 1-4
+var optionnumbers = [1, 2, 3, 4];
+function shuffle(o) {
+    for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+};
+
+var randomoption = shuffle(optionnumbers);
+
+
+var x = 0;
+
+
+        myFunction();
+
+
+$(function() {
+    $("#nextquestion").click(function() {
+        myFunction();
+    });
+});
+
+
+function myFunction() {
+
+//show hidden buttons
+var show = document.getElementsByClassName("hidebutton");
+var b;
+for (b = 0; b < show.length; b++) {
+    show[b].style.display = "block";
+}
+
+document.getElementById("option2").disabled = false;
+document.getElementById("option3").disabled = false;
+document.getElementById("option4").disabled = false;
+document.getElementById("option1").style.color = "#333";
+document.getElementById("option1").style.fontWeight = "400";
+
+
+// takes buttons and randomizes the options
+document.getElementById("option1").id = "newoption"+randomoption[0];
+document.getElementById("option2").id = "newoption"+randomoption[1];
+document.getElementById("option3").id = "newoption"+randomoption[2];
+document.getElementById("option4").id = "newoption"+randomoption[3];
+
+
+//start of showing images one by one with no repeats
+    if (x < numberofornamentals) { //does this while x is less than number of total images/ornamentals
+    correctimage = ranNums[x]; //this itterates through the random number array selecting one image at a time
+    document.getElementById("demo").innerHTML = '<img class="quizplantImage" src="images/ornamental/' + ornamentals[correctimage].image[0] + '">';
+    document.getElementById("newoption1").innerHTML = ornamentals[correctimage].commonName;
+
+
+
+//get random wrong answers for buttons
+var wronganswer = ranNums[Math.floor(Math.random() * ranNums.length)];
+    while (wronganswer == correctimage){ //checks that the wrong answer displayed hasn't been used before
+    var wronganswer = ranNums[Math.floor(Math.random() * ranNums.length)];
+    }
+document.getElementById("newoption2").innerHTML = ornamentals[wronganswer].commonName;
+
+
+var wronganswer2 = ranNums[Math.floor(Math.random() * ranNums.length)];
+ while (wronganswer2 == correctimage || wronganswer2 == wronganswer ){
+    var wronganswer2 = ranNums[Math.floor(Math.random() * ranNums.length)];
+    }
+document.getElementById("newoption3").innerHTML = ornamentals[wronganswer2].commonName;
+
+
+var wronganswer3 = ranNums[Math.floor(Math.random() * ranNums.length)];
+ while (wronganswer3 == correctimage || wronganswer3 == wronganswer2 || wronganswer3 ==wronganswer){
+    var wronganswer3 = ranNums[Math.floor(Math.random() * ranNums.length)];
+    }
+document.getElementById("newoption4").innerHTML = ornamentals[wronganswer3].commonName;
+
+    x++;
+    console.log(x);
+
+//grey out next image until you get it right
+document.getElementById("nextquestion").style.display = "none";
+
+    document.getElementById("newoption1").id = "option1";
+    document.getElementById("newoption2").id = "option2";
+    document.getElementById("newoption3").id = "option3";
+    document.getElementById("newoption4").id = "option4";
+}
+
+
+//if button is correct show next question button
+$("button").click(function() {
+    var buttonclicked = (this.id);
+    if (buttonclicked == "option1")
+    {
+        document.getElementById("nextquestion").style.display = "block";
+        document.getElementById("tryAgain").style.display = "none";
+        document.getElementById("option2").disabled = true;
+        document.getElementById("option3").disabled = true;
+        document.getElementById("option4").disabled = true;
+        document.getElementById("option1").style.color = "green"; //turns correct answer green
+        document.getElementById("option1").style.fontWeight = "600";
+    }
+
+    if (buttonclicked == "option2")
+    {
+    $('#tryAgain').css('display','none');
+    $('#tryAgain').fadeIn('fast');
+    }
+
+    if (buttonclicked == "option3")
+    {
+    $('#tryAgain').css('display','none');
+    $('#tryAgain').fadeIn('fast');
+    }
+
+    if (buttonclicked == "option4")
+    {
+    $('#tryAgain').css('display','none');
+    $('#tryAgain').fadeIn('fast');
+    }
+    else {
+    }
+});
+
+}
+
+
+</script>
+
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Purdue Agriculture</p>
+    </div>
+</footer>
+</body>
+</html>

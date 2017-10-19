@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/quiz.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/w3.css">
+
+    <script src="js/jquery.min.js"></script>
+    <title>Learn About Flowers & Indoor Plants</title>    
+    <link rel="icon" type="image/gif" href="images/assets/favicon.ico" />
+
+</head>
+
+
+<div class="navbar navbar-inverse goldbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#goldnav" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle Quick Links</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="goldnav" class="collapse navbar-collapse navbar-right gold">
+            <p class="hide">Quick Links</p>
+            <ul id="menu-gold-top-nav" class="nav navbar-nav right quicklinks"><li id="menu-item-26" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-26"><a href="https://ag.purdue.edu/hla">Department of Horticulture and Landscape Architecture</a></li>
+            <li id="menu-item-27" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-27"><a href="https://www.ag.purdue.edu/">College of Agriculture</a></li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<div class="top">
+<div class="container">
+    <div class="row">
+        <div class="logo col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <a href="http://www.purdue.edu">
+                <img class="hidden-print" alt="Purdue University Department of Horticulture and Landscape Architecture" src="images/assets/logo.png">
+            </a>
+        </div>
+        <div class="department col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <a title="Return to Purdue Online Plant ID Study site" href="index.html">
+                <img class="img-responsive" style="margin-top: -15px;" src="images/assets/PlantIDPalLogoTransparent.png">
+                
+                <span class="blog-description" href=""></span>
+            </a>
+        </div>
+        
+    </div>
+</div>
+</div>
+<nav class="navbar navbar-inverse blackbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".black">
+            <span style="color: #fff;"><i style="color: #fff; vertical-align:middle;" class="fa fa-bars fa-2x"></i>&nbsp;&nbsp;Site Menu</span>
+            </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Site Navigation Menu -->
+        <div class="collapse navbar-collapse black"><ul id="menu-primary" class="nav navbar-nav"><li id="" class="home menu-item menu-item-type-custom menu-item-object-custom menu-item-home"><a title="<span class=&quot;glyphicon glyphicon-home&quot; aria-hidden=&quot;true&quot;></span> Home" href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+        <li id="" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown active"><a title="Learn" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true">Learn <span class="caret"></span></a>
+        <ul role="menu" class=" dropdown-menu">
+            <li id="" class="menu-item menu-item-type-taxonomy"><a title="Ornamentals" href="ornamentalslist.html">Ornamentals</a></li>
+            <li id="" class="menu-item menu-item-type-taxonomy"><a title="Flowers &amp; Indoor Plants" href="flowers.html">Flowers &amp; Indoor Plants</a></li>
+            <li id="" class="menu-item menu-item-type-taxonomy"><a title="Fruits and Nuts" href="fruits.html">Fruits & Nuts</a></li>
+            <li id="" class="menu-item menu-item-type-taxonomy"><a title="Vegetables" href="vegetables.html">Vegetables</a></li>
+        </ul>
+    </li>
+    <li id="" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item"><a title="Test Your Knowledge" href="quizpage.html">Test Your Knowledge</a></li>
+    </ul></div>    <!--/.nav-collapse -->
+</div>
+</nav>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <h1>Learn about Flowers & Indoor Plants</h1> <br>
+            <div id="output">
+
+                <div id="demo1" style=""></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/data/flowers.js"></script>
+<script type="text/javascript">
+var  globallvariable = "1";
+
+var flowers=JSON.parse(txt).flowers;
+
+//this function creates reusable sort functions, and can sort by any field.
+var sort_by = function(field, reverse, primer){
+   var key = primer ? 
+       function(x) {return primer(x[field])} : 
+       function(x) {return x[field]};
+
+   reverse = !reverse ? 1 : -1;
+
+   return function (a, b) {
+       return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+     } 
+}
+//sort by commonName
+flowers.sort(sort_by('commonName', false, function(a){return a.toUpperCase()}));
+
+
+var container=document.getElementById("output");
+var numberofflowers=flowers.length; //this is the total number of entries, choosing one image per entry it is same as total images
+
+myFunction();
+
+function myFunction() {
+
+
+text = "<div>";
+for (i = 0; i < numberofflowers; i++) {
+
+    var numberofpictures=flowers[i].image.length; //this is the total number of pictures,in DATA file pictures and description must match
+    text += "<div class='col-sm-4' style='min-height:380px'>"; 
+    text += "<div data-toggle='modal' data-i='" + i + "' data-myattr='" + flowers[i].commonName + "' data-numberpics='" + numberofpictures + "' class='col-sm-12 plantbox' style='text-align:center;' onClick='reName(this); plusDivs(-1);' data-target='#myModal'>";    
+    text += '<img class= "plantImage" src="images/ornamental/' + flowers[i].image[0] + '">' ; //the plusDivs(-1) calls the slider funtction so the image does not repeat itself when calling a different plant
+    text += "<h2 style='font-weight: bold; margin-bottom: 0;'>" + flowers[i].commonName + "</h2>";
+    text += "<p style='font-style: italic;'>" + flowers[i].scientificName + "</p>";
+    text += "</div>"; 
+    text += "</div>"; 
+}
+text += "</div>";
+document.getElementById("demo1").innerHTML = text;
+//on click update modal area for specific plant
+
+};
+
+
+function reName(d) { //This function is called onClick of the image and starts changing out the images and description of the Modal Window
+    var NameofPlant = d.getAttribute("data-myattr"); //get the name of the plant
+    var PicsNumber = d.getAttribute("data-numberpics"); //get the number of images of the picture you clicked
+    var arrayvariable = d.getAttribute("data-i"); //get the number of array for description
+    globallvariable = PicsNumber;  //sets the global vairable to the number of images, we use this number to limit amount of slides
+    slideIndex = 2; //sets slide index to first image
+    document.getElementById("modalTitle").innerHTML = NameofPlant;
+    NameSrc = "images/ornamental/"+ NameofPlant+"";
+
+    $("#firstImage").attr('src', ''+NameSrc+'.jpg');
+     document.getElementById("firstdescription").innerHTML = flowers[arrayvariable].imageDescription[0];
+
+    if (PicsNumber >= 2) {
+      $("#secondImage").attr('src', ''+NameSrc+'2.jpg');
+     document.getElementById("seconddescription").innerHTML = flowers[arrayvariable].imageDescription[1];
+    }
+   if (PicsNumber >= 3) {
+    $("#thirdImage").attr('src', ''+NameSrc+'3.jpg');
+    document.getElementById("thirddescription").innerHTML = flowers[arrayvariable].imageDescription[2];
+       }
+     if (PicsNumber >= 4) {
+    $("#fourthImage").attr('src', ''+NameSrc+'4.jpg');
+    document.getElementById("fourthdescription").innerHTML = flowers[arrayvariable].imageDescription[3];
+       }
+     if (PicsNumber >= 5) {
+    $("#fifthImage").attr('src', ''+NameSrc+'5.jpg');
+    document.getElementById("fifthdescription").innerHTML = flowers[arrayvariable].imageDescription[4];
+       }
+   if (PicsNumber >= 6) {
+    $("#sixthImage").attr('src', ''+NameSrc+'6.jpg');
+    document.getElementById("sixthdescription").innerHTML = flowers[arrayvariable].imageDescription[5];
+       }
+
+}
+
+
+</script>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2 class="modal-title" id="modalTitle">Modal Header</h2>
+        </div>
+        <div class="modal-body">
+
+
+                  <div class="w3-display-container mySlides">
+                  <img id="firstImage" src="images/ornamental/tree.jpg" style="width:100%; max-height:450px;">
+                      <div id="firstdescription" class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-black">
+                        Trolltunga, Norway
+                      </div>
+                </div>
+
+                  <div class="w3-display-container mySlides">
+                  <img id="secondImage" src="images/ornamental/rose.jpg" style="width:100%; max-height:450px;">
+                      <div  id="seconddescription" class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-black">
+                        Trolltunga, Norway 2
+                      </div>
+                </div>
+
+                  <div class="w3-display-container mySlides">
+                  <img id="thirdImage" src="images/ornamental/susan.jpg" style="width:100%; max-height:450px;">
+                      <div id="thirddescription" class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-black">
+                        Trolltunga, Norway 3
+                      </div>
+                </div>
+
+                  <div class="w3-display-container mySlides">
+                  <img id="fourthImage" src="images/ornamental/tulip.jpg" style="width:100%; max-height:450px;">
+                      <div id="fourthdescription" class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-black">
+                        Trolltunga, Norway 4
+                      </div>
+                </div>
+
+                <div class="w3-display-container mySlides">
+                  <img id="fifthImage" src="images/ornamental/tulip.jpg" style="width:100%; max-height:450px;">
+                      <div id="fifthdescription" class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-black">
+                        Trolltunga, Norway 5
+                      </div>
+                </div>
+
+                <div class="w3-display-container mySlides">
+                  <img id="sixthImage" src="images/ornamental/tulip.jpg" style="width:100%; max-height:450px;">
+                      <div  id="sixthdescription" class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-black">
+                        Trolltunga, Norway 6
+                      </div>
+                </div>
+
+                  <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                  <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+<script>
+
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > globallvariable) {slideIndex = 1}
+  if (n < 1) {slideIndex = globallvariable}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  x[slideIndex-1].style.display = "block";
+}
+</script>
+
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Purdue Agriculture</p>
+    </div>
+</footer>
+</body>
+</html>
